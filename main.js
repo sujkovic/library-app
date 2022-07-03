@@ -10,27 +10,27 @@ function Book(title, author, pages, read, index) {
     this.pages = pages;
     this.read = read;
     this.index = index;
-}
-
-Book.prototype.toggleReadStatus = function() {
-    if (this.read === true) {
-        this.read = false;
-    }
-}
-
-function addBookToLibrary(title, author, pages, read) {
-    bookObj = new Book(title, author, pages, read, bookIndex);
-    myLibrary.push(bookObj);
     bookDiv = document.createElement('div');
     bookNameDiv = document.createElement('div');
     bookAuthorDiv = document.createElement('div');
     bookPagesDiv = document.createElement('div');
-    bookReadDiv = document.createElement('div');
+    let bookReadButton = document.createElement('button');
+    bookReadButton.classList.add('readbtn');
     let removeButton = document.createElement('button');
     bookNameDiv.textContent = title;
     bookAuthorDiv.textContent = author;
     bookPagesDiv.textContent = pages;
-    bookReadDiv.textContent = read;
+    bookReadButton.textContent = read;
+    bookReadButton.addEventListener('click', () => {
+        if (this.read === 'read') {
+            bookReadButton.textContent = 'not read';
+            this.read = 'not read';
+        }
+        else if (this.read === 'not read') {
+            bookReadButton.textContent = 'read';
+            this.read = 'read';
+        }
+    });
     removeButton.classList.add('remove-button');
     removeButton.classList.add(`${bookIndex}`);
     removeButton.textContent = 'Remove';
@@ -41,19 +41,24 @@ function addBookToLibrary(title, author, pages, read) {
     bookDiv.appendChild(bookNameDiv);
     bookDiv.appendChild(bookAuthorDiv);
     bookDiv.appendChild(bookPagesDiv);
-    bookDiv.appendChild(bookReadDiv);
+    bookDiv.appendChild(bookReadButton);
     bookDiv.appendChild(removeButton);
     bookDiv.classList.add('book');
+    this.div = bookDiv;
     libraryWrapper.appendChild(bookDiv);
     removeButtons = document.querySelectorAll('.remove-button');
     bookIndex++;
 }
 
+Book.prototype.toggleReadStatus = function() {
+    alert('among');
+    if (this.read === 'read') {
+        this.read = 'not read';
+        removeButton.textContent = 'not read';
+    }
+}
+
 let newBookButton = document.querySelector('.btn');
 newBookButton.addEventListener('click', () => {
-    addBookToLibrary(prompt('Please enter book name'), prompt('Enter Author'), prompt('Enter number of pages'), prompt('Type \'Read\' if you\'ve read this book or \'Not read\' if you haven\'t.'));
+    myLibrary.push(new Book(prompt('Please enter book name'), prompt('Enter Author'), prompt('Enter number of pages'), prompt('Type \'Read\' if you\'ve read this book or \'Not read\' if you haven\'t.')));
 });
-
-
-
-//all thats left is toggle read/unread and form
