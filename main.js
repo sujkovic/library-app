@@ -50,14 +50,6 @@ function Book(title, author, pages, read, index) {
     bookIndex++;
 }
 
-Book.prototype.toggleReadStatus = function() {
-    alert('among');
-    if (this.read === 'read') {
-        this.read = 'not read';
-        removeButton.textContent = 'not read';
-    }
-}
-
 let newBookButton = document.querySelector('.btn');
 newBookButton.addEventListener('click', () => {
     myLibrary.push(new Book(prompt('Please enter book name'), prompt('Enter Author'), prompt('Enter number of pages'), prompt('Type \'Read\' if you\'ve read this book or \'Not read\' if you haven\'t.')));
