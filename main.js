@@ -12,6 +12,12 @@ function Book(title, author, pages, read, index) {
     this.index = index;
 }
 
+Book.prototype.toggleReadStatus = function() {
+    if (this.read === true) {
+        this.read = false;
+    }
+}
+
 function addBookToLibrary(title, author, pages, read) {
     bookObj = new Book(title, author, pages, read, bookIndex);
     myLibrary.push(bookObj);
@@ -29,7 +35,7 @@ function addBookToLibrary(title, author, pages, read) {
     removeButton.classList.add(`${bookIndex}`);
     removeButton.textContent = 'Remove';
     removeButton.addEventListener('click', () => {
-        myLibrary = myLibrary.splice(this.bookIndex, 1);
+        myLibrary.splice(this.bookIndex, 1);
         removeButton.parentElement.remove();
     });
     bookDiv.appendChild(bookNameDiv);
@@ -47,3 +53,7 @@ let newBookButton = document.querySelector('.btn');
 newBookButton.addEventListener('click', () => {
     addBookToLibrary(prompt('Please enter book name'), prompt('Enter Author'), prompt('Enter number of pages'), prompt('Type \'Read\' if you\'ve read this book or \'Not read\' if you haven\'t.'));
 });
+
+
+
+//all thats left is toggle read/unread and form
